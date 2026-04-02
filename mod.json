@@ -11,6 +11,11 @@
 	"version": "v1.0.0",
 	"developer": "toastexgd",
 	"description": "Every click is a frame perfect?!",
+	"tags": [
+		"joke",
+		"interface",
+		"gameplay"
+	],
 	"resources": {
 		"files": [
 			"resources/sounds/*.mp3",
