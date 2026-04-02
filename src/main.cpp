@@ -258,12 +258,7 @@ class $modify(FramePerfectPlayLayer, PlayLayer) {
         }
 
         auto const pathString = utils::string::pathToString(path);
-        auto* texture = CCTextureCache::sharedTextureCache()->addImage(pathString.c_str(), false);
-        if (!texture) {
-            return;
-        }
-
-        auto* sprite = CCSprite::createWithTexture(texture);
+        auto* sprite = CCSprite::create(pathString.c_str());
         if (!sprite) {
             return;
         }
