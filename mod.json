@@ -33,7 +33,7 @@
 			"default": "medium",
 			"one-of": [
 				"rare",
-				"medium",
+				"likely",
 				"every-press"
 			],
 			"name": "Sound Rate",
@@ -69,7 +69,7 @@
 			"type": "bool",
 			"default": true,
 			"name": "Show 120 FPS",
-			"description": "Show the yellow-green 120 FPS fake frame perfect counter."
+			"description": "Show the yellow and green 120 FPS fake frame perfect counter."
 		},
 		"show-240": {
 			"type": "bool",
@@ -81,13 +81,13 @@
 			"type": "bool",
 			"default": true,
 			"name": "Show 360 FPS",
-			"description": "Show the red-orange 360 FPS fake frame perfect counter."
+			"description": "Show the red and orange 360 FPS fake frame perfect counter."
 		},
 		"show-999": {
 			"type": "bool",
 			"default": true,
 			"name": "Show 999 FPS",
-			"description": "Show the deep red 999 FPS fake frame perfect counter."
+			"description": "Show the red 999 FPS fake frame perfect counter."
 		}
 	},
 	"dependencies": {
