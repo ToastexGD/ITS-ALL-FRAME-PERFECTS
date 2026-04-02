@@ -93,10 +93,20 @@ namespace {
         if (setting == "rare") {
             return 0.20;
         }
+        if (setting == "likely" || setting == "medium") {
+            return 0.40;
+        }
         if (setting == "every-press") {
             return 1.0;
         }
         return 0.40;
+    }
+
+    void migrateLegacySettings() {
+        auto const soundRate = Mod::get()->getSettingValue<std::string>("proc-rate");
+        if (soundRate == "likely") {
+            Mod::get()->setSettingValue<std::string>("proc-rate", "medium");
+        }
     }
 
     bool isTierEnabled(size_t index) {
@@ -146,7 +156,6 @@ namespace {
     void playTierSound(size_t index) {
         auto const path = resolveSoundPath(index);
         if (!std::filesystem::exists(path)) {
-            log::warn("Missing frame perfect sound '{}'", kTiers.at(index).soundFile);
             return;
         }
 
@@ -245,27 +254,23 @@ class $modify(FramePerfectPlayLayer, PlayLayer) {
 
         auto const path = resolveSoggyCatPath();
         if (!std::filesystem::exists(path)) {
-            log::warn("Missing soggy cat image '{}'", kSoggyCatFile);
             return;
         }
 
         auto const pathString = utils::string::pathToString(path);
         auto* texture = CCTextureCache::sharedTextureCache()->addImage(pathString.c_str(), false);
         if (!texture) {
-            log::warn("Failed to load soggy cat image '{}'", pathString);
             return;
         }
 
         auto* sprite = CCSprite::createWithTexture(texture);
         if (!sprite) {
-            log::warn("Failed to create soggy cat sprite");
             return;
         }
 
         auto const winSize = CCDirector::sharedDirector()->getWinSize();
         auto const contentSize = sprite->getContentSize();
         if (contentSize.width <= 0.0f || contentSize.height <= 0.0f) {
-            log::warn("Soggy cat image has invalid size");
             return;
         }
 
@@ -469,6 +474,7 @@ class $modify(FramePerfectGameLayer, GJBaseGameLayer) {
 };
 
 $on_mod(Loaded) {
+    migrateLegacySettings();
     ensureAtLeastOneTierEnabled();
 
     listenForAllSettingChanges([](std::string_view key, std::shared_ptr<SettingV3>) {

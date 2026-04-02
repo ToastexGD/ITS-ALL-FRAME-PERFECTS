@@ -38,7 +38,7 @@
 			"default": "medium",
 			"one-of": [
 				"rare",
-				"likely",
+				"medium",
 				"every-press"
 			],
 			"name": "Sound Rate",
