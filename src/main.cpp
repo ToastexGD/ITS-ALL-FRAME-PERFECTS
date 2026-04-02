@@ -327,7 +327,7 @@ public:
         overlay->setAnchorPoint({ 0.0f, 0.0f });
         overlay->setPosition({ 0.0f, 0.0f });
         overlay->setID("frameperfect-overlay"_spr);
-        m_uiLayer->addChild(overlay, 9999);
+        m_uiLayer->addChild(overlay);
         m_fields->overlay = overlay;
         createSoggyCatFlash();
 
